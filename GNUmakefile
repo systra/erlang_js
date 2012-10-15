@@ -16,7 +16,7 @@ c_src_clean:
 	cd c_src; $(MAKE) clean
 
 test: all
-	$(REBAR) eunit
+	$(REBAR) eunit skip_deps=true
 
 docs: all
 	@mkdir -p docs
