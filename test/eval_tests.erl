@@ -37,16 +37,16 @@ function_test_() ->
        fun() ->
                P = test_util:get_thing(),
                ?assertMatch(ok, js:define(P, <<"function get_first(data) { return data[\"first\"]; };">>)),
-               Data = {struct, [{<<"first">>, <<"abc">>}]},
+               Data = {[{<<"first">>, <<"abc">>}]},
                ?assertMatch({ok, <<"abc">>}, js:call(P, <<"get_first">>, [Data])),
                erlang:unlink(P) end,
       fun() ->
               %% Regression test case for embedded error properties in function return values
               P = test_util:get_thing(),
               ?assertMatch(ok, js:define(P, <<"function return_error_property() { return [{\"value\": \"some_value\", \"list\": [{\"error\": \"some_error\"}]}]; }">>)),
-              ?assertMatch({ok,[{struct,[{<<"value">>,<<"some_value">>},{<<"list">>,[{struct,[{<<"error">>,<<"some_error">>}]}]}]}]}, js:call(P, <<"return_error_property">>, [])),
-              erlang:unlink(P) end      
-      ]      
+              ?assertMatch({ok,[{[{<<"value">>,<<"some_value">>},{<<"list">>,[{[{<<"error">>,<<"some_error">>}]}]}]}]}, js:call(P, <<"return_error_property">>, [])),
+              erlang:unlink(P) end
+      ]
      }].
 
 binding_test_() ->
@@ -78,8 +78,8 @@ charset_test_() ->
 
 json_test_() ->
   [fun() ->
-       Struct = {struct, [{<<"test">>, <<"1">>}]},
-       ?assertMatch(Struct, js_mochijson2:decode(js_mochijson2:encode(Struct))) end].
+       Struct = {[{<<"test">>, <<"1">>}]},
+       ?assertMatch(Struct, jiffy:decode(jiffy:encode(Struct))) end].
 
 ejslog_test_() ->
     [{setup, fun test_util:port_setup/0,
