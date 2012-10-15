@@ -18,6 +18,9 @@ c_src_clean:
 test: all
 	$(REBAR) eunit skip_deps=true
 
+run: all
+	erl -pa ebin -pa deps/*/ebin -boot start_sasl
+
 docs: all
 	@mkdir -p docs
 	@./build_docs.sh

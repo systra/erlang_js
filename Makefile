@@ -11,6 +11,9 @@ verbose:
 test:
 	@gmake test
 
+run:
+	@gmake run
+
 docs:
 	@gmake docs
 
