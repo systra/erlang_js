@@ -36,7 +36,7 @@ erl -pa ebin -pa deps/*/ebin -boot start_sasl
    or using Make target
 
 #+BEGIN_SRC shell
-Make run
+make run
 #+END_SRC
 
    Start the =erlang_js= application and create a Javascript VM.
