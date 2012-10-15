@@ -80,4 +80,5 @@ $ make docs
 $ open docs/index.html
 #+END_SRC
 
-[![endorse](http://api.coderwall.com/systra/endorse.png)](http://coderwall.com/systra)
+[[http://coderwall.com/systra][Coderwall]] :: [[http://api.coderwall.com/systra/endorse.png]]
+
