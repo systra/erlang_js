@@ -1,6 +1,6 @@
 
 all:
-	$(REBAR) compile
+	$(REBAR) get-deps compile
 
 verbose:
 	$(REBAR) compile verbose=1
