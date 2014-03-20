@@ -57,15 +57,7 @@ new() ->
 %% @doc Create a new Javascript VM instance and preload Douglas Crockford's
 %% json2 converter (http://www.json.org/js.html)
 new(ThreadStackSize, HeapSize) ->
-    {ok, Port} = new(ThreadStackSize, HeapSize, no_json),
-    %% Load json converter for use later
-    case define_js(Port, <<"json2.js">>, json_converter(), ?SCRIPT_TIMEOUT) of
-        ok ->
-            {ok, Port};
-        {error, Reason} ->
-            port_close(Port),
-            {error, Reason}
-    end.
+    new(ThreadStackSize, HeapSize, no_json).
 
 %% @type init_fun() = function(port()).
 %% @spec new(int(), int(), no_json | init_fun() | {ModName::atom(), FunName::atom()}) -> {ok, port()} | {error, atom()} | {error, any()}
@@ -204,15 +196,3 @@ call_driver(Ctx, Command, Args, Timeout) ->
 %% @private
 make_call_token() ->
     list_to_binary(integer_to_list(erlang:phash2(erlang:make_ref()))).
-
-%% @private
-json_converter() ->
-    FileName = filename:join([priv_dir(), "json2.js"]),
-    case js_cache:fetch(FileName) of
-        none ->
-            {ok, Contents} = file:read_file(FileName),
-            js_cache:store(FileName, Contents),
-            Contents;
-        Contents ->
-            Contents
-    end.
