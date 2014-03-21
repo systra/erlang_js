@@ -12,9 +12,7 @@
    JSON encoding/decoding.
 
    =erlang_js= builds and executes only on Unix-based platforms,
-   including Linux, Mac OS/X, and Solaris. It includes version 1.8.0
-   of Spidermonkey and Douglas Crockford's =json2.js= JSON
-   parser. More information about the features available to Javascript
+   including Linux, Mac OS/X, and Solaris (version with Spidermonkey 1.8.5 was tested on OS/X and Centos 6.3/6.5). More information about the features available to Javascript
    inside =erlang_js= are detailed on the [[https://developer.mozilla.org/en/JavaScript/Reference][Mozilla Developer Center]].
 
 
