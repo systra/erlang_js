@@ -27,17 +27,16 @@ js: $(LIB_DIR)/libjs.a
 $(LIB_DIR)/libjs.a: $(LIB_DIR)/libnspr4.a
 	@rm -rf $(JS_DIR)
 	@$(GUNZIP) -c js185-1.0.0.tar.gz | $(TAR) xf -
-	# @for I in patches/js-*.patch; do \
-	# 	($(PATCH) -p1 < $${I} || echo "Skipping patch"); \
-	# done
+	# To use system NSPR library remove --with-nspr* options
+	# and put --with-system-nspr
 	@pushd $(JS_DIR)/js/src; \
 		make clean; \
-	    ./configure && make JS_DIST=$(SYSTEM_DIR); \
+	    ./configure --disable-debug --enable-optimize --enable-threadsafe --with-nspr-cflags="-I$(INC_DIR)/nspr" --with-nspr-libs="-L$(LIB_DIR) -lnspr4" && make JS_DIST=$(SYSTEM_DIR); \
 		popd
 	@mkdir $(INC_DIR)/js
 	@cp $(JS_DIR)/js/src/dist/include/*.h $(INC_DIR)/js
 	@cp $(JS_DIR)/js/src/*.tbl $(INC_DIR)/js
-	@cp $(JS_DIR)/js/src/dist/lib/libjs_static.a $(LIB_DIR)/libjs.a 
+	@cp $(JS_DIR)/js/src/dist/lib/libjs_static.a $(LIB_DIR)/libjs.a
 
 $(LIB_DIR)/libnspr4.a:
 	$(GUNZIP) -c nsprpub-$(NSPR_VER).tar.gz | $(TAR) xf -
