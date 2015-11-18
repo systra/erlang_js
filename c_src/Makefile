@@ -1,6 +1,7 @@
 # This Makefile builds the dependencies (libjs and libnspr) needed by
 # spidermonkey_drv.so
 
+SHELL	:= /bin/bash
 UNAME	:= $(shell uname -s)
 TAR		?= tar
 GUNZIP		?= gunzip
