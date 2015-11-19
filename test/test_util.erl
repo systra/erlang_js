@@ -12,6 +12,9 @@ port_setup(Size) ->
 
 port_teardown(P) ->
   thing_holder ! stop,
+  % it might take a while until the stop message reaches the holder process
+  % and it actually terminates, so wait a little here to make sure it went away
+  timer:sleep(20),
   erlang:port_connect(P, self()),
   js_driver:destroy(P).
 
